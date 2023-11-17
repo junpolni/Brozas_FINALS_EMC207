@@ -67,8 +67,8 @@ public class AiBehaviour : MonoBehaviour
                 range = GameManager.Instance.warriorRange;
                 break;
             case AI_Types.Mage:
-                //health = GameManager.Instance.mageHealth;
-                //range = GameManager.Instance.mageRange;
+                health = GameManager.Instance.mageHealth;
+                range = GameManager.Instance.mageRange;
                 break;
             case AI_Types.Ninja:
                 health = GameManager.Instance.ninjaHealth;
