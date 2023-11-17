@@ -33,9 +33,16 @@ public class AiBehaviour : MonoBehaviour
     public float health;
     public float damage;
     public new string tag = "Team1";
-    [Header("VFX")]
+    [Header("Archer-VFX")]
     public GameObject Arrow;
     public Transform spawnArcherFX;
+    [Header("Warrior-VFX")]
+    public GameObject AttackWarrior;
+    public Transform spawnWarriorAttackFX;
+    [Header("Mage-VFX")]
+    public GameObject MagePow;
+    public Transform spawnMageProjFX;
+    [Header("Ninja-VFX")]
     public GameObject Slash;
     public Transform slashFX;
     // Start is called before the first frame update
@@ -56,8 +63,12 @@ public class AiBehaviour : MonoBehaviour
                 range = GameManager.Instance.archerRange;
                 break;
             case AI_Types.Warrior:
+                health = GameManager.Instance.warriorHealth;
+                range = GameManager.Instance.warriorRange;
                 break;
             case AI_Types.Mage:
+                //health = GameManager.Instance.mageHealth;
+                //range = GameManager.Instance.mageRange;
                 break;
             case AI_Types.Ninja:
                 health = GameManager.Instance.ninjaHealth;
