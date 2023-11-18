@@ -21,7 +21,9 @@ public class MageEvent : MonoBehaviour
     public void SpawnAttack()
     {
         GameObject powersFX = Instantiate(newAiBehaviour.MagePow, newAiBehaviour.spawnMageProjFX.position, newAiBehaviour.spawnMageProjFX.rotation);
-        Rigidbody powProjRigidbody = powersFX.AddComponent<Rigidbody>();
+        VFXDamage vFXDamage = powersFX.GetComponent<VFXDamage>();
+        vFXDamage.StartVFX(newAiBehaviour.tag);
+        Rigidbody powProjRigidbody = powersFX.GetComponent<Rigidbody>();
         powProjRigidbody.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 }

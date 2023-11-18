@@ -16,9 +16,10 @@ public class ArcherWalkState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameObject nearestGameObject = GameObject.FindWithTag(aiBehaviour.tag);
-        aiBehaviour.agent.SetDestination(nearestGameObject.transform.position);
         if (nearestGameObject != null)
         {
+            aiBehaviour.agent.SetDestination(nearestGameObject.transform.position);
+
             // Check if the GameObject is within the radius
             float distance = Vector3.Distance(aiBehaviour.agent.transform.position, nearestGameObject.transform.position);
             if (distance <= aiBehaviour.range)
@@ -27,6 +28,11 @@ public class ArcherWalkState : StateMachineBehaviour
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isAttacking", true);
             }
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isAttacking", false);
         }
     }
 

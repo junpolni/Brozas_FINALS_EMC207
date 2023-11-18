@@ -21,6 +21,8 @@ public class WarriorEvent : MonoBehaviour
     public void SpawnAttack()
     {
         GameObject attackFX = Instantiate(newAiBehaviour.AttackWarrior, newAiBehaviour.spawnWarriorAttackFX.position, newAiBehaviour.spawnWarriorAttackFX.rotation);
+        VFXDamage vFXDamage = attackFX.GetComponent<VFXDamage>();
+        vFXDamage.StartVFX(newAiBehaviour.tag);
         Rigidbody attackRigidbody = attackFX.AddComponent<Rigidbody>();
         attackRigidbody.AddForce(transform.forward * speed, ForceMode.Impulse);
     }

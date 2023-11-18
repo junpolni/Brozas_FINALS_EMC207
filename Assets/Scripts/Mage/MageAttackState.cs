@@ -26,6 +26,11 @@ public class MageAttackState : StateMachineBehaviour
                 aiBehaviour.agent.speed = 3.5f;
             }
         }
+        else
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isAttacking", false);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

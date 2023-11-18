@@ -21,6 +21,8 @@ public class NinjaEvent : MonoBehaviour
     public void SlashSword()
     {
         GameObject slashFX = Instantiate(newAiBehaviour.Slash, newAiBehaviour.slashFX.position, newAiBehaviour.slashFX.rotation);
+        VFXDamage vFXDamage = slashFX.GetComponent<VFXDamage>();
+        vFXDamage.StartVFX(newAiBehaviour.tag);
         Rigidbody slashRigidbody = slashFX.AddComponent<Rigidbody>();
         slashRigidbody.AddForce(transform.forward * speed, ForceMode.Impulse);
     }

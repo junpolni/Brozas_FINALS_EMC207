@@ -27,9 +27,11 @@ public class AiBehaviour : MonoBehaviour
     public List<GameObject> aiModel;
     public Animator animator;
     public NavMeshAgent agent;
+    public Collider col;
     [Header("AttackRange")]
     public float range;
     [Header("EnemyValues")]
+    public bool isDead = false;
     public float health;
     public float damage;
     public new string tag = "Team1";
@@ -49,6 +51,7 @@ public class AiBehaviour : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        col = GetComponent<Collider>();
         Action<AI_Types> activateAiModel = (AI_Types aiType) =>
         {
             aiModel[aiModelIndices[aiType]].SetActive(true);
@@ -61,18 +64,26 @@ public class AiBehaviour : MonoBehaviour
             case AI_Types.Archer:
                 health = GameManager.Instance.archerHealth;
                 range = GameManager.Instance.archerRange;
+                damage = GameManager.Instance.archerDamage;
+
                 break;
             case AI_Types.Warrior:
                 health = GameManager.Instance.warriorHealth;
                 range = GameManager.Instance.warriorRange;
+                damage = GameManager.Instance.warriorDamage;
+
                 break;
             case AI_Types.Mage:
                 health = GameManager.Instance.mageHealth;
                 range = GameManager.Instance.mageRange;
+                damage = GameManager.Instance.mageDamage;
+
                 break;
             case AI_Types.Ninja:
                 health = GameManager.Instance.ninjaHealth;
                 range = GameManager.Instance.ninjaRange;
+                damage = GameManager.Instance.ninjaDamage;
+
                 break;
             default:
                 break;
@@ -84,6 +95,7 @@ public class AiBehaviour : MonoBehaviour
     {
 
     }
+
     // Update is called once per frame
     void LateUpdate()
     {

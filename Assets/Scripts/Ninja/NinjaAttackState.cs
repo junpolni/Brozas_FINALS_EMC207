@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class NinjaAttackState : StateMachineBehaviour
 {
+    public float timer;
     AiBehaviour aiBehaviour;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         aiBehaviour = animator.GetComponentInParent<AiBehaviour>();
+        GameObject nearestGameObject = GameObject.FindWithTag(aiBehaviour.tag);
+        aiBehaviour.transform.LookAt(nearestGameObject.transform);
+        timer = 1;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -25,7 +29,34 @@ public class NinjaAttackState : StateMachineBehaviour
                 animator.SetBool("isAttacking", false);
                 aiBehaviour.agent.speed = 3.5f;
             }
+            else if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isAttacking", false);
+                }
+            }
+
+            //var enemyAI = nearestGameObject.GetComponentInParent<AiBehaviour>();
+            //if (enemyAI != null)
+            //{
+            //    if (enemyAI.isDead)
+            //    {
+            //        Debug.Log("test");
+
+            //        animator.SetBool("isWalking", true);
+            //        animator.SetBool("isAttacking", false);
+            //    }
+            //}
         }
+        else
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isAttacking", false);
+        }
+        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

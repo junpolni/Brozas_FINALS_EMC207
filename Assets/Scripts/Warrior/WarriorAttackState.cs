@@ -9,6 +9,8 @@ public class WarriorAttackState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         aiBehaviour = animator.GetComponentInParent<AiBehaviour>();
+        GameObject nearestGameObject = GameObject.FindWithTag(aiBehaviour.tag);
+        aiBehaviour.transform.LookAt(nearestGameObject.transform);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,6 +20,7 @@ public class WarriorAttackState : StateMachineBehaviour
         if (nearestGameObject != null)
         {
             // Check if the GameObject is within the radius
+            Debug.Log("test");
             float distance = Vector3.Distance(aiBehaviour.agent.transform.position, nearestGameObject.transform.position);
             if (distance >= aiBehaviour.range)
             {
@@ -25,6 +28,21 @@ public class WarriorAttackState : StateMachineBehaviour
                 animator.SetBool("isAttacking", false);
                 aiBehaviour.agent.speed = 3.5f;
             }
+
+            var enemyAI = nearestGameObject.GetComponentInParent<AiBehaviour>();
+            if (enemyAI != null)
+            {
+                if (enemyAI.isDead)
+                {
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isAttacking", false);
+                }
+            }
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isAttacking", false);
         }
     }
 
